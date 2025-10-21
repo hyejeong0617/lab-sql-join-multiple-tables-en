@@ -11,11 +11,13 @@ join country as cc on c.country_id = cc.country_id
 
 2. Write a query to display how much business, in dollars, each store brought in.
 
-select s.store_id, c.city, cc.country
+select s.store_id as store, SUM(p.amount) as total_sales
 from store as s
-join address as a on s.address_id = a.address_id
-join city as c on a.city_id = c.city_id
-join country as cc on c.country_id = cc.country_id
+join inventory as i on s.store_id = i.store_id
+join rental as r on i.inventory_id = r.inventory_id
+join payment as p on p.rental_id = r.rental_id
+group by s.store_id;
+
 
 3. What is the average running time of films by category?
 
